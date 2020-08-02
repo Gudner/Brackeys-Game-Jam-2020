@@ -112,4 +112,16 @@ public class SmoothMovement : MonoBehaviour
 
         rigid.velocity = new Vector2(fHorizontalVelocity, rigid.velocity.y);
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Link"))
+            isInRange = true;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Link"))
+            isInRange = false;
+    }
 }
