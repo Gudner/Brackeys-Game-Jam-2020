@@ -33,8 +33,8 @@ public class SmoothMovement : MonoBehaviour
     [Range(0, 1)]
     float fCutJumpHeight = 0.5f;
 
-    bool isConnected = true;
-    bool isInRange = true;
+    public bool isConnected = true;
+    private bool isInRange = true;
     public Chain chain;
     public GameObject massPrefab;
     GameObject mass;
@@ -68,7 +68,7 @@ public class SmoothMovement : MonoBehaviour
                 }
             }
         }
-
+        
         Vector2 v2GroundedBoxCheckPosition = (Vector2)transform.position + new Vector2(0, -0.01f);
         Vector2 v2GroundedBoxCheckScale = (Vector2)transform.localScale + new Vector2(-0.02f, 0);
         bool bGrounded = Physics2D.OverlapBox(v2GroundedBoxCheckPosition, v2GroundedBoxCheckScale, 0, lmWalls);

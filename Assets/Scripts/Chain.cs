@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 
+
 public class Chain : MonoBehaviour
 {
     public GameObject[] links;
     public GameObject player;
+    public SmoothMovement smoothMovement;
     public int lastLink;
-
+    bool IsConnected;
+    
     private void Start()
     {
         lastLink = links.Length - 1;
@@ -14,7 +17,8 @@ public class Chain : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.R))
+        IsConnected = smoothMovement.isConnected;
+        if (Input.GetKeyDown(KeyCode.R) && IsConnected)
         {
             if (lastLink == 0)
                 return;
