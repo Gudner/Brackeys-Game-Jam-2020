@@ -51,6 +51,10 @@ public class SmoothMovement : MonoBehaviour
 	
 	void Update ()
     {
+        if(Input.GetMouseButtonDown(0))
+        {
+            Attack();
+        }
         if (Input.GetKeyDown(KeyCode.E))
         {
             if (isConnected)
@@ -131,6 +135,11 @@ public class SmoothMovement : MonoBehaviour
         {
             Flip();
         }
+    }
+
+    void Attack()
+    {
+        animator.SetTrigger("Attack");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
