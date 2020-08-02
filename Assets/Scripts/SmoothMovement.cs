@@ -7,6 +7,8 @@ public class SmoothMovement : MonoBehaviour
     [SerializeField]
     float fJumpVelocity = 5;
 
+    Animator animator;
+    bool facingRight = false;
     Rigidbody2D rigid;
 
     float fJumpPressedRemember = 0;
@@ -39,8 +41,11 @@ public class SmoothMovement : MonoBehaviour
     public GameObject massPrefab;
     GameObject mass;
 
+    bool bGrounded;
+
     void Start ()
     {
+        animator = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody2D>();
 	}
 	
@@ -69,14 +74,16 @@ public class SmoothMovement : MonoBehaviour
             }
         }
         
-        Vector2 v2GroundedBoxCheckPosition = (Vector2)transform.position + new Vector2(0, -0.01f);
+        Vector2 v2GroundedBoxCheckPosition = (Vector2)transform.position + new Vector2(0, -0.9f);
         Vector2 v2GroundedBoxCheckScale = (Vector2)transform.localScale + new Vector2(-0.02f, 0);
-        bool bGrounded = Physics2D.OverlapBox(v2GroundedBoxCheckPosition, v2GroundedBoxCheckScale, 0, lmWalls);
+        bGrounded = Physics2D.OverlapBox(v2GroundedBoxCheckPosition, v2GroundedBoxCheckScale, 0, lmWalls);
 
         fGroundedRemember -= Time.deltaTime;
         if (bGrounded)
         {
             fGroundedRemember = fGroundedRememberTime;
+            animator.SetBool("IsFalling", false);
+            animator.SetBool("IsJumping", false);
         }
 
         fJumpPressedRemember -= Time.deltaTime;
@@ -87,6 +94,8 @@ public class SmoothMovement : MonoBehaviour
 
         if (Input.GetButtonUp("Jump"))
         {
+            animator.SetBool("IsJumping", false);
+            animator.SetBool("IsFalling", true);
             if (rigid.velocity.y > 0)
             {
                 rigid.velocity = new Vector2(rigid.velocity.x, rigid.velocity.y * fCutJumpHeight);
@@ -98,6 +107,7 @@ public class SmoothMovement : MonoBehaviour
             fJumpPressedRemember = 0;
             fGroundedRemember = 0;
             rigid.velocity = new Vector2(rigid.velocity.x, fJumpVelocity);
+            animator.SetBool("IsJumping", true);
         }
 
         float fHorizontalVelocity = rigid.velocity.x;
@@ -111,6 +121,16 @@ public class SmoothMovement : MonoBehaviour
             fHorizontalVelocity *= Mathf.Pow(1f - fHorizontalDampingBasic, Time.deltaTime * 10f);
 
         rigid.velocity = new Vector2(fHorizontalVelocity, rigid.velocity.y);
+        animator.SetFloat("Speed", Mathf.Abs(Input.GetAxisRaw("Horizontal")));
+
+        if(!facingRight && Input.GetAxisRaw("Horizontal") > 0)
+        {
+            Flip();
+        }
+        else if(facingRight && Input.GetAxisRaw("Horizontal") < 0)
+        {
+            Flip();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -123,5 +143,13 @@ public class SmoothMovement : MonoBehaviour
     {
         if (collision.CompareTag("Link"))
             isInRange = false;
+    }
+
+    void Flip()
+    {
+        facingRight = !facingRight;
+        Vector3 Scaler = transform.localScale;
+        Scaler.x *= -1;
+        transform.localScale = Scaler;
     }
 }
