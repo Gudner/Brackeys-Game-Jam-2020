@@ -844,6 +844,7 @@ MonoBehaviour:
   fHorizontalDampingWhenStopping: 0.5
   fHorizontalDampingWhenTurning: 0.5
   fCutJumpHeight: 0.5
+  isConnected: 1
   chain: {fileID: 788012470}
   massPrefab: {fileID: 8257049458815728867, guid: 2d164077a4c6e0a41a3d9500dd0f5d43,
     type: 3}
@@ -1569,7 +1570,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0099992845, y: -25.255999, z: -10}
+  m_LocalPosition: {x: -0.009999761, y: -25.255999, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2596,6 +2597,7 @@ MonoBehaviour:
   - {fileID: 147370385}
   - {fileID: 594479061}
   player: {fileID: 376570462}
+  smoothMovement: {fileID: 376570469}
   lastLink: 0
 --- !u!1 &794263703
 GameObject:
@@ -4501,7 +4503,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1355634208}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0099992845, y: -25.255999, z: -10}
+  m_LocalPosition: {x: -0.009999761, y: -25.255999, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1206782764}
