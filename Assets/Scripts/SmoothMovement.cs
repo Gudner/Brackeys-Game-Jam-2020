@@ -20,8 +20,6 @@ public class SmoothMovement : MonoBehaviour
     float fGroundedRememberTime = 0.25f;
 
     [SerializeField]
-    float fHorizontalAcceleration = 1;
-    [SerializeField]
     [Range(0, 1)]
     float fHorizontalDampingBasic = 0.5f;
     [SerializeField]
